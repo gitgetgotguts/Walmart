@@ -1,16 +1,20 @@
 import asyncio
 import random
 import curl_cffi
+import json
+import argparse
 
-async def main():
+async def main(product_url):
     # Initialize an AsyncSession
     # This session will persist cookies and connections across requests.
     session = curl_cffi.requests.AsyncSession()
 
     # --- Step 1: Make the initial GET request to the product page ---
-    url1 = "https://www.walmart.com/ip/LEGO-Marvel-Guardians-of-the-Galaxy-Marvel-Rocket-Baby-Groot-Mini-Action-Figure-8-5/5015311522"
+    # url1 = "https://www.walmart.com/ip/LEGO-Marvel-Guardians-of-the-Galaxy-Marvel-Rocket-Baby-Groot-Mini-Action-Figure-8-5/5015311522"
+    url1=product_url
+    product_id=url1.split('/')[-1]
     params1 = {
-        "athcpid": "5015311522",
+        "athcpid": product_id,
     }
     headers1 = {
         "Host": "www.walmart.com",
@@ -52,7 +56,12 @@ async def main():
     # --- Step 2: Make the GraphQL request using the same session ---
     url2 = "https://www.walmart.com/orchestra/home/graphql/GetAllSellerOffers/3f9fdc231f5f39017bebd11c8bb1266e9460f67addb2c880fa791802d873b630"
     params2 = {
-        "variables": '{"itemId":"5015311522","isSubscriptionEligible":true,"conditionCodes":[1],"allOffersSource":"MORE_SELLER_OPTIONS"}'
+        "variables": json.dumps({
+            "itemId": product_id,
+            "isSubscriptionEligible": True,
+            "conditionCodes": [1],
+            "allOffersSource": "MORE_SELLER_OPTIONS"
+        })
     }
     headers2 = {
         "Host": "www.walmart.com",
@@ -97,8 +106,12 @@ async def main():
         print(f"Response 2 status code: {response2.status_code}")
         
         if response2.status_code == 200:
-            print("\nGraphQL Response:")
-            print(response2.json())
+            json_data = response2.json()
+            output_filename = f"{product_id}.json"
+            with open(output_filename, 'w', encoding='utf-8') as f:
+                json.dump(json_data, f, indent=4, ensure_ascii=False)
+            print(f"\nSuccessfully saved GraphQL response to {output_filename}")
+
         else:
             print("GraphQL request failed. The response text might contain a captcha or block page.")
             print(response2.text())
@@ -110,4 +123,15 @@ async def main():
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    parser = argparse.ArgumentParser(
+        description="Get all seller information for a Walmart item."
+    )
+    parser.add_argument(
+        "url",
+        type=str,
+        help="The full URL of the Walmart product page (e.g., https://www.walmart.com/ip/...).",
+    )
+
+    args = parser.parse_args() 
+
+    asyncio.run(main(args.url))
