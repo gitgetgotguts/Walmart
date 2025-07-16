@@ -8,11 +8,11 @@ The script takes a Walmart product URL as input and saves a JSON file with all t
 **To use it:**
 
 1. **Install the necessary library:**  
-   pip install curl\_cffi
+   `pip install curl\_cffi`
 
 2. **Save the script** as get\_offers.py.  
 3. **Run it from your terminal**, providing the Walmart product URL as an argument:  
-   python get\_offers.py https://www.walmart.com/ip/LEGO-Marvel-Guardians-of-the-Galaxy-Marvel-Rocket-Baby-Groot-Mini-Action-Figure-8-5/5015311522
+   `python get\_offers.py https://www.walmart.com/ip/LEGO-Marvel-Guardians-of-the-Galaxy-Marvel-Rocket-Baby-Groot-Mini-Action-Figure-8-5/5015311522`
 
 The script will print its progress and, if successful, create a JSON file (e.g., 5015311522.json) in the same directory.
 
