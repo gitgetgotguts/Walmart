@@ -14,7 +14,7 @@ The script takes a Walmart product URL as input and saves a JSON file with all t
 
 3. **Save the script** as get\_offers.py.  
 4. **Run it from your terminal**, providing the Walmart product URL as an argument:  
-   ```bash
+```bash
    python get\_offers.py https://www.walmart.com/ip/LEGO-Marvel-Guardians-of-the-Galaxy-Marvel-Rocket-Baby-Groot-Mini-Action-Figure-8-5/5015311522
    ```
 
