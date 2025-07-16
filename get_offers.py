@@ -103,7 +103,7 @@ async def main():
             print(response2.json())
         else:
             print("GraphQL request failed. The response text might contain a captcha or block page.")
-            print(await response2.text())
+            print(response2.text())
 
     except Exception as e:
         print(f"An error occurred during the second request: {e}")
