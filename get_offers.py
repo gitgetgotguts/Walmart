@@ -43,6 +43,7 @@ async def main():
     except Exception as e:
         print(f"An error occurred during the first request: {e}")
         return
+    user_app_version_cookie = session.cookies.get('userAppVersion')
 
     delay = random.uniform(3, 7)
     print(f"Waiting for {delay:.2f} seconds to mimic human Browse...")
@@ -61,7 +62,7 @@ async def main():
         "Accept-Encoding": "gzip, deflate, br, zstd",
         "Referer": url1,
         "x-o-segment": "oaoh",
-        "x-o-platform-version": "usweb-1.212.0-3d45d91d0379181242084b528eb8317750d32b99-7102008r",
+        "x-o-platform-version": user_app_version_cookie,
         "WM_MP": "true",
         "Content-Type": "application/json",
         "x-o-ccm": "server",
