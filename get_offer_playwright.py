@@ -1,9 +1,10 @@
+#worked with api request this code is not complete
 import asyncio
 from playwright.async_api import async_playwright
 
 async def main():
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True)
+        browser = await p.chromium.launch(headless=False)
         page = await browser.new_page()
 
         # Step 1 & 2: Navigate and wait for the page to load

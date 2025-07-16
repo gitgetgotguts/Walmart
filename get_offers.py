@@ -40,12 +40,10 @@ async def main():
             impersonate="chrome131_android"
         )
         print(f"Response 1 status code: {response1.status_code}")
-        # The cookies are now stored in the session object automatically.
     except Exception as e:
         print(f"An error occurred during the first request: {e}")
         return
 
-    # --- Add a random, human-like delay using asyncio ---
     delay = random.uniform(3, 7)
     print(f"Waiting for {delay:.2f} seconds to mimic human Browse...")
     await asyncio.sleep(delay)
