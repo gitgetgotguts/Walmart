@@ -1,6 +1,6 @@
-# **Walmart All Sellers Scraper**
+# **Walmart All Sellers/Suppliers Scraper**
 
-This Python script gets seller information for Walmart items in a json file {product_id.json}.
+This Python script gets seller/Suppliersinformation for Walmart items in a json file {product_id.json}.
 
 ## **What the Script Does & How to Use It**
 
